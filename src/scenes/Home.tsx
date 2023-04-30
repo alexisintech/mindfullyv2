@@ -1,6 +1,5 @@
 import Image from "next/image";
-import { signIn, signOut, useSession } from "next-auth/react";
-import { api } from "~/utils/api";
+import { signIn } from "next-auth/react";
 
 const Home = () => {
   return (
@@ -17,43 +16,17 @@ const Home = () => {
         />
         <div className="flex flex-col items-center gap-2">
           <p className="text-2xl italic text-white">Let's grow, today</p>
-          <AuthShowcase />
+          <div className="flex flex-col items-center justify-center gap-4">
+            <button
+              className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
+              onClick={() => void signIn()}
+            >
+              Sign in
+            </button>
+          </div>
         </div>
       </div>
     </main>
-  );
-};
-
-const AuthShowcase: React.FC = () => {
-  const { data: sessionData } = useSession();
-
-  const { data: secretMessage } = api.example.getSecretMessage.useQuery(
-    undefined, // no input
-    { enabled: sessionData?.user !== undefined }
-  );
-
-  return (
-    <div className="flex flex-col items-center justify-center gap-4">
-      <p className="text-center text-2xl text-white">
-        {sessionData && <span>Logged in as {sessionData.user?.name}</span>}
-        {secretMessage && <span> - {secretMessage}</span>}
-      </p>
-      {sessionData && (
-        <Image
-          height={100}
-          width={100}
-          className="rounded-full"
-          src={sessionData.user.image as string}
-          alt="placeholder"
-        />
-      )}
-      <button
-        className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
-        onClick={sessionData ? () => void signOut() : () => void signIn()}
-      >
-        {sessionData ? "Sign out" : "Sign in"}
-      </button>
-    </div>
   );
 };
 

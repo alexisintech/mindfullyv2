@@ -65,8 +65,9 @@ model VerificationToken {
 }
 
 model Journal {
-    id   String @id @default(cuid())
-    name String
+    id    String @id @default(cuid())
+    title String
+    color String @default("#0284c7")
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
@@ -89,8 +90,8 @@ model Post {
     journal   Journal @relation(fields: [journalId], references: [id])
     journalId String
 
-    prompt   Prompt @relation(fields: [promptId], references: [id])
-    promptId String
+    prompt   Prompt? @relation(fields: [promptId], references: [id])
+    promptId String?
 }
 
 model Prompt {

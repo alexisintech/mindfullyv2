@@ -19,7 +19,7 @@ const Home: NextPage = () => {
           <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-[5rem] italic">
             <span className="text-[hsl(280,100%,70%)]">Mind</span>fully
           </h1>
-          <Image src="/illustration-webp.webp" width={300} height={300} alt="illustration of woman reading while sitting on stack of books"/>
+          <Image src="/illustration-webp.png" width={300} height={300} alt="illustration of woman reading while sitting on stack of books"/>
           <div className="flex flex-col items-center gap-2">
             <p className="text-2xl text-white italic">
               Let's grow, today
@@ -48,6 +48,7 @@ const AuthShowcase: React.FC = () => {
         {sessionData && <span>Logged in as {sessionData.user?.name}</span>}
         {secretMessage && <span> - {secretMessage}</span>}
       </p>
+      {sessionData && <Image height={100} width={100} className="rounded-full" src={sessionData.user.image as string} alt="placeholder" />}
       <button
         className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
         onClick={sessionData ? () => void signOut() : () => void signIn()}
